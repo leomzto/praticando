@@ -64,7 +64,7 @@ int main(void)
 
     // listas iguais
     bool iguais = listasIguais(copia, lista);
-    cout << "\nCopia e lista são iguais? " << (iguais ? "Sim" : "Não") << endl;
+    cout << "\nCopia e lista sao iguais? " << (iguais ? "Sim" : "Nao") << endl;
 
     // vetorizar e encadear vetor
     vLista* v = vetoriarListaEncadeada(lista);
@@ -77,7 +77,7 @@ int main(void)
     cout << "\nLista encadeada a partir do vetor:" << endl;
     imprimirLista(novaEncadeada);
 
-    // LIBERAR MEMÓRIA
+    // liberar memoria
     liberarLista(lista);
     liberarLista(copia);
     liberarLista(invertida);
