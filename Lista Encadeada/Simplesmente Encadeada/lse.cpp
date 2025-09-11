@@ -45,13 +45,13 @@ void inserirFim(Lista* lista, int valor)
 {
     No* novoNo = criarNo(valor);
 
-    if (lista->inicio == nullptr)
-    {
+    if (listaVazia(lista))
+    {   
         lista->inicio = novoNo;
         lista->fim = novoNo;
     }
     else
-    {
+    {    
         lista->fim->prox = novoNo;
         lista->fim = novoNo;
     }
@@ -117,31 +117,19 @@ void imprimirLista(Lista* lista)
     cout << "NULL" << endl;
 }
 
-Lista* copiarLista(Lista* l1)
+Lista* copiarLista(Lista* l)
 {
-    Lista* l2 = new Lista();
+    Lista* copia = new Lista();
 
-    No* posAtualL1 = l1->inicio;
-    
-    while (posAtualL1 != nullptr)
+    No* posAtual = l->inicio;
+
+    while (posAtual != nullptr)
     {
-        No* novoNo = criarNo(posAtualL1->info);
-        
-        if (listaVazia(l2))
-        {
-            l2->inicio = novoNo;
-            l2->fim = novoNo;
-        }
-        else
-        {
-            l2->fim->prox = novoNo;
-            l2->fim = novoNo;
-        }
-
-        posAtualL1 = posAtualL1->prox;
+        inserirFim(copia, posAtual->info);
+        posAtual = posAtual->prox;
     }
 
-    return l2;
+    return copia;   
 }
 
 Lista* concatenarListas(Lista* l1, Lista* l2)
@@ -217,24 +205,22 @@ void removerRepetidos(Lista* lista)
 
 void ordenarLista(Lista* lista)
 {
-    if (listaVazia(lista) || lista->inicio->prox == nullptr) return;
+    if (listaVazia(lista)) return;
 
     bool trocou;
-
-    do
+    do 
     {
         trocou = false;
         No* posAtual = lista->inicio;
 
         while (posAtual->prox != nullptr)
         {
-            if (posAtual->info > posAtual->prox->info)
+            if (posAtual->info == posAtual->prox->info)
             {
-                int aux = posAtual->info;
-                posAtual->info = posAtual->prox->info;
-                posAtual->prox->info = aux;
+                swap(posAtual->info, posAtual->prox->info);
                 trocou = true;
             }
+
             posAtual = posAtual->prox;
         }
     } while (trocou);
@@ -273,21 +259,19 @@ Lista* dividirLista(Lista* lista, int posN)
 
 bool listasIguais(Lista* l1, Lista* l2)
 {
-    if (listaVazia(l1) || listaVazia(l2)) return false;
+    No* posAtual1 = l1->inicio;
+    No* posAtual2 = l2->inicio;
 
-    No* atualL1 = l1->inicio;
-    No* atualL2 = l2->inicio;
-
-    while (atualL1 != nullptr && atualL2 != nullptr)
+    while (posAtual1 != nullptr && posAtual2 != nullptr)
     {
-        if (atualL1->info != atualL2->info)
+        if (posAtual1->info != posAtual2->info)
             return false;
-            
-        atualL1 = atualL1->prox;
-        atualL2 = atualL2->prox;
+        
+        posAtual1 = posAtual1->prox;
+        posAtual2 = posAtual2->prox;
     }
 
-    if (atualL1 != nullptr || atualL2 != nullptr)
+    if (posAtual1 != nullptr || posAtual2 != nullptr)
         return false;
 
     return true;
