@@ -332,20 +332,20 @@ void removerRepetidos(Lista* lista)
 
     while (posAtual != nullptr)
     {
-        bool existe = false;
+        bool ta_ali = false;
 
         No* temp = novaLista->inicio;
         while (temp != nullptr)
         {
             if (temp->info == posAtual->info)
             {
-                existe = true;
+                ta_ali = true;
                 break;
             }
             temp = temp->prox;
         }
 
-        if (!existe)
+        if (!ta_ali)
             inserirFim(novaLista, posAtual->info);
 
         posAtual = posAtual->prox;
